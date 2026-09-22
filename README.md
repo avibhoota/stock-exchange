@@ -1,9 +1,43 @@
 # Simple stock exchange
 
-A Python 3 program using only the standard library. There are no classes or
-dependencies. `stock_exchange.py` contains reusable functions and in-memory
-state; `main.py` handles line-based standard input and output. State starts empty
-in each new process and is not saved.
+A stock exchange brings buyers and sellers together to trade shares in
+companies. This project models the basic process: users hold cash and shares,
+submit orders, and exchange cash for shares when their prices are compatible.
+
+The exchange supports **limit orders**. A buyer specifies the most they will pay
+per share, and a seller specifies the least they will accept. Each stock has an
+**order book** containing orders that have not yet filled. When a new order
+arrives, the exchange matches it against the best available prices on the other
+side, giving earlier orders priority at equal prices. A **fill** is an executed
+trade; an order may produce several fills, with any unfilled shares remaining
+pending in the book.
+
+For example, if a seller has offered shares at $10 and a buyer arrives willing
+to pay up to $12, they trade at $10: this exchange uses the existing order's
+price. The buyer receives shares and the seller receives cash.
+
+## Supported functionality
+
+- Create users, deposit cash, and withdraw cash.
+- Introduce a stock through a simplified IPO: create a company account, give it
+  an initial supply of shares, and offer those shares for sale at the IPO price.
+- Buy and sell shares using limit orders, including resale by shareholders.
+- Match orders by price and arrival time, supporting partial fills and orders
+  that trade with multiple counterparties.
+- View each user's cash, share holdings, pending buys, and pending sells.
+- Use the exchange as a Python module or through line-based stdin/stdout.
+
+The goal is to keep the mechanics easy to read and test. The model assumes valid
+inputs and sufficient cash and shares, uses integers throughout, and does not
+reserve balances for pending orders. There are no market orders, cancellations,
+fees, or saved state. The detailed assumptions appear below.
+
+## Project layout
+
+Python 3 is the only requirement; there are no third-party dependencies or
+classes. `stock_exchange.py` contains reusable functions and in-memory state;
+`main.py` reads commands and prints results. This README contains the usage
+guide and executable tests. Each new process starts with an empty exchange.
 
 ## Run
 
